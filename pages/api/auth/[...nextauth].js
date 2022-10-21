@@ -29,7 +29,7 @@ export const authOptions = {
           },
         });
         if (user) {
-          const hashedPassword = sha256(credentials.password).toString();
+          const hashedPassword = credentials.password;
           if (user.password === hashedPassword) {
             // Any object returned will be saved in `user` property of the JWT
             return user;
