@@ -13,4 +13,11 @@ model User {
   firstName String? 
   lastName  String? 
   password  String 
+  Coloc     Coloc[]
+}
+
+model Coloc {
+  id        Int    @id @default(autoincrement())
+  name      String @unique
+  users     User[]
 }

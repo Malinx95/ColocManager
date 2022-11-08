@@ -4,6 +4,10 @@ import { useSession } from "next-auth/react";
 const Success: NextPage = () => {
   const { data: session, status } = useSession();
 
+  if (status === "authenticated") {
+    console.log(session);
+  }
+
   return (
     <div>
       <h1>Success</h1>

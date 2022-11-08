@@ -20,6 +20,7 @@ export default async function handler(
       password: password,
     },
   });
+  prisma.$disconnect();
   if (result) {
     res.status(200).json({ success: true });
   } else {

@@ -47,7 +47,7 @@ const Login: NextPage = () => {
             signIn("credentials", {
               username: username,
               password: sha256(password),
-              callbackUrl: "/success",
+              callbackUrl: "/dashboard",
             });
           }}
         />

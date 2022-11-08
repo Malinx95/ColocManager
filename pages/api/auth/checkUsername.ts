@@ -18,6 +18,7 @@ export default async function handler(
       username: username,
     },
   });
+  prisma.$disconnect();
   console.log(user);
   if (user) {
     console.log("user exists");
