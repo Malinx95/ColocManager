@@ -1,17 +1,20 @@
+import { Coloc } from "@prisma/client";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import PageWrapper from "../../components/PageWrapper";
 
 const HomeDashboard: NextPage = () => {
+  const router = useRouter();
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated: () => {
       router.push("/");
     },
   });
-  const router = useRouter();
+
+  const [colocs, setColocs] = useState<Coloc[]>([]);
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -25,24 +28,33 @@ const HomeDashboard: NextPage = () => {
       }).then((res) => {
         res.json().then((data) => {
           console.log(data);
+          if (!data.hasColoc) {
+            router.push("/coloc/createOrJoin");
+          } else {
+            setColocs(data.colocs);
+          }
         });
       });
     }
   }, [status]);
 
-  if (status === "authenticated") {
-    return (
-      <PageWrapper title="Dashboard" description="Dashboard main page">
-        <h1>Dashboard</h1>
-      </PageWrapper>
-    );
-  } else {
-    return (
-      <PageWrapper title="Dashboard" description="Dashboard main page">
-        <h1>Loading</h1>
-      </PageWrapper>
-    );
-  }
+  return (
+    <PageWrapper title="Dashboard" description="Dashboard main page">
+      <div className="flex flex-col justify-center text-center">
+        <select
+          name="coloc"
+          id="coloc"
+          className="bg-[#d9d9d9] rounded-lg focus:outline-none text-center text-4xl py-5 font-bold"
+        >
+          {colocs.map((coloc, index) => (
+            <option key={coloc.id} value={index}>
+              {coloc.name}
+            </option>
+          ))}
+        </select>
+      </div>
+    </PageWrapper>
+  );
 };
 
 export default HomeDashboard;

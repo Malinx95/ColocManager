@@ -1,19 +1,23 @@
-function input({
+function Input({
   type,
+  className,
   placeholder,
   value,
   onChange,
   onBlur,
+  onKeyDown,
   error,
   errorMessage,
   valid,
   disabled,
 }: {
   type: string;
+  className?: string;
   placeholder?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   error?: boolean;
   errorMessage?: string;
   valid?: boolean;
@@ -22,7 +26,11 @@ function input({
   return (
     <div className="flex flex-col">
       <input
-        className="bg-[#d9d9d9] rounded-lg mx-5 px-2 h-8 shadow-md focus:outline-none"
+        className={
+          className
+            ? className
+            : "bg-[#d9d9d9] rounded-lg mx-5 px-2 h-8 shadow-md focus:outline-none"
+        }
         style={
           error
             ? { border: "1px solid #EF4444", color: "#EF4444" }
@@ -31,14 +39,16 @@ function input({
             : {}
         }
         type={type}
+        disabled={disabled}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        onKeyDown={onKeyDown}
       />
       {error ? <span className="text-red-500">{errorMessage}</span> : null}
     </div>
   );
 }
 
-export default input;
+export default Input;

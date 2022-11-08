@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
+  id        String    @id @default(uuid())
   username  String @unique
   firstName String? 
   lastName  String? 
@@ -17,7 +17,7 @@ model User {
 }
 
 model Coloc {
-  id        Int    @id @default(autoincrement())
+  id        String    @id @default(uuid())
   name      String @unique
   users     User[]
 }
