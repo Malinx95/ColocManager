@@ -5,8 +5,8 @@ import { UserWithColocs } from "../types/prisma-extend";
 
 type UserContextType = {
   currentUser: UserWithColocs;
-  selectedColoc: Coloc | null;
-  setSelectedColoc: (coloc: Coloc) => void;
+  selectedColoc: Coloc | null | undefined;
+  setSelectedColoc: (coloc: Coloc | undefined | null) => void;
 };
 
 const CurrentUserContext = createContext({} as UserContextType);
@@ -18,7 +18,9 @@ export const UserContextProvider = ({
 }) => {
   const { data: session } = useSession();
   const [currentUser, setCurrentUser] = useState<UserWithColocs>(null);
-  const [selectedColoc, setSelectedColoc] = useState<Coloc | null>(null);
+  const [selectedColoc, setSelectedColoc] = useState<Coloc | null | undefined>(
+    null
+  );
 
   useEffect(() => {
     if (session) {

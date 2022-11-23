@@ -3,6 +3,8 @@ import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Card from "../../components/Card";
+import NavBar from "../../components/NavBar";
 import PageWrapper from "../../components/PageWrapper";
 
 const HomeDashboard: NextPage = () => {
@@ -40,19 +42,10 @@ const HomeDashboard: NextPage = () => {
 
   return (
     <PageWrapper title="Dashboard" description="Dashboard main page">
-      <div className="flex flex-col justify-center text-center">
-        <select
-          name="coloc"
-          id="coloc"
-          className="bg-[#d9d9d9] rounded-lg focus:outline-none text-center text-4xl py-5 font-bold"
-        >
-          {colocs.map((coloc, index) => (
-            <option key={coloc.id} value={index}>
-              {coloc.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      <NavBar colocs={colocs} />
+      <Card title="Dashboard" subtitle="Welcome to your dashboard">
+        <p>Dashboard</p>
+      </Card>
     </PageWrapper>
   );
 };
