@@ -1,9 +1,9 @@
 import { Coloc, PrismaClient, User } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { type } from "os";
-import { UserWithColocs } from "../../../types/prisma-extend";
+import { CurrentUser } from "../../../types/prisma-extend";
 
-type Data = UserWithColocs;
+type Data = CurrentUser;
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,13 +11,14 @@ export default async function handler(
 ) {
   const prisma = new PrismaClient();
   const userId = req.body.userId;
-  let userWithColocs: UserWithColocs = null;
+  let userWithColocs: CurrentUser = null;
   const result = await prisma.user.findUnique({
     where: {
       id: userId,
     },
     include: {
       Coloc: true,
+      Spending: true,
     },
   });
   if (result) {
@@ -27,6 +28,7 @@ export default async function handler(
       lastName: result.lastName,
       username: result.username,
       Coloc: result.Coloc,
+      Spending: result.Spending,
     };
   }
   prisma.$disconnect();

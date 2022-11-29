@@ -1,27 +1,20 @@
 import { Coloc } from "@prisma/client";
 import { useCurrentUserContext } from "../provider/CurrentUserContext";
 import { Dropdown } from "./Dropdown";
+import { Bars3Icon } from "@heroicons/react/24/solid";
+import { useState } from "react";
+import Link from "next/link";
 
-type NavBarProps = {
-  colocs: Coloc[];
-};
+type NavBarProps = {};
 
-function NavBar({ colocs }: NavBarProps) {
-  const { currentUser } = useCurrentUserContext();
-  console.log(currentUser);
+function NavBar({}: NavBarProps) {
+  const { drawerOpen, setDrawerOpen } = useCurrentUserContext();
   return (
-    <nav className="flex flex-col justify-center text-center shadow-sm">
-      {/* <select
-        name="coloc"
-        id="coloc"
-        className="bg-[#d9d9d9] rounded-lg focus:outline-none text-center text-4xl py-5 font-bold"
-      >
-        {currentUser?.Coloc.map((coloc, index) => (
-          <option key={coloc.id} value={index}>
-            {coloc.name}
-          </option>
-        ))}
-      </select> */}
+    <nav className="sticky top-0 w-full flex flex-row justify-center text-center shadow-sm bg-blue-400 items-center">
+      <Bars3Icon
+        className="w-10 h-10 text-center"
+        onClick={() => setDrawerOpen(!drawerOpen)}
+      />
       <Dropdown />
     </nav>
   );

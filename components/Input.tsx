@@ -14,8 +14,8 @@ function Input({
   type: string;
   className?: string;
   placeholder?: string;
-  value?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: any;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement> | any) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   error?: boolean;

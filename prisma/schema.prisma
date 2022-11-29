@@ -8,16 +8,51 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  username  String @unique
-  firstName String? 
-  lastName  String? 
-  password  String 
+  id        String     @id @default(uuid())
+  username  String     @unique
+  firstName String?
+  lastName  String?
+  password  String
   Coloc     Coloc[]
+  Spending  Spending[]
 }
 
 model Coloc {
-  id        String    @id @default(uuid())
-  name      String @unique
-  users     User[]
+  id       String     @id @default(uuid())
+  name     String     @unique
+  users    User[]
+  Spending Spending[]
+  Todos    Todo[]
+  Events   Event[]
+}
+
+model Spending {
+  id      String   @id @default(uuid())
+  name    String
+  amount  Float
+  date    DateTime @default(now())
+  user    User     @relation(fields: [userId], references: [id])
+  coloc   Coloc    @relation(fields: [colocId], references: [id])
+  userId  String
+  colocId String
+}
+
+model Todo {
+  id        String   @id @default(uuid())
+  title     String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Coloc     Coloc?   @relation(fields: [colocId], references: [id])
+  colocId   String?
+}
+
+model Event {
+  id        String   @id @default(uuid())
+  title     String
+  date      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Coloc     Coloc?   @relation(fields: [colocId], references: [id])
+  colocId   String?
 }

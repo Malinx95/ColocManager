@@ -20,9 +20,11 @@ function PageWrapper({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="lg:w-1/2 md:w-3/4">{children}</main>
+      <main className="lg:w-1/2 md:w-3/4 min-h-full pb-2 bg-green-400">
+        {children}
+      </main>
 
-      <Footer absolute />
+      <Footer />
     </div>
   );
 }

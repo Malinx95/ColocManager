@@ -55,20 +55,22 @@ DropdownProps) {
         className="w-full flex flex-col shadow-md relative"
         style={{ display: isOpen ? "flex" : "none" }}
       >
-        {currentUser?.Coloc.map((coloc, index) => (
-          <div
-            key={coloc.id}
-            className="bg-[#d9d9d9] text-center text-xl w-full break-all truncate border-b border-black hover:bg-[#c4c4c4] cursor-pointer relative"
-            onClick={() => {
-              setSelectedColoc(
-                currentUser?.Coloc.find((Coloc) => Coloc.id === coloc.id)
-              );
-              setIsOpen(false);
-            }}
-          >
-            {coloc.name}
-          </div>
-        ))}
+        <div className="flex flex-col absolute w-full bg-[#d9d9d9]">
+          {currentUser?.Coloc.map((coloc, index) => (
+            <div
+              key={coloc.id}
+              className="bg-[#d9d9d9] text-center text-xl w-full break-all truncate hover:bg-[#c4c4c4] cursor-pointer"
+              onClick={() => {
+                setSelectedColoc(
+                  currentUser?.Coloc.find((Coloc) => Coloc.id === coloc.id)
+                );
+                setIsOpen(false);
+              }}
+            >
+              {coloc.name}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

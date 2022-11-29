@@ -1,12 +1,15 @@
 import { Coloc, User } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { UserWithColocs } from "../types/prisma-extend";
+import { CurrentUser } from "../types/prisma-extend";
 
 type UserContextType = {
-  currentUser: UserWithColocs;
+  currentUser: CurrentUser;
   selectedColoc: Coloc | null | undefined;
   setSelectedColoc: (coloc: Coloc | undefined | null) => void;
+  refreshUser: () => void;
+  drawerOpen: boolean;
+  setDrawerOpen: (open: boolean) => void;
 };
 
 const CurrentUserContext = createContext({} as UserContextType);
@@ -17,12 +20,17 @@ export const UserContextProvider = ({
   children: React.ReactNode;
 }) => {
   const { data: session } = useSession();
-  const [currentUser, setCurrentUser] = useState<UserWithColocs>(null);
+  const [currentUser, setCurrentUser] = useState<CurrentUser>(null);
   const [selectedColoc, setSelectedColoc] = useState<Coloc | null | undefined>(
     null
   );
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
+    console.log("selectedColoc", selectedColoc);
+  }, [selectedColoc]);
+
+  function refreshUser() {
     if (session) {
       fetch("/api/user/getCurrentUser", {
         method: "POST",
@@ -32,6 +40,7 @@ export const UserContextProvider = ({
         body: JSON.stringify({ userId: session?.user.id }),
       }).then((res) => {
         res.json().then((data) => {
+          console.log("currentUser", data);
           setCurrentUser(data);
           if (data.Coloc.length > 0) {
             setSelectedColoc(data.Coloc[0]);
@@ -43,6 +52,10 @@ export const UserContextProvider = ({
       setSelectedColoc(null);
       console.log("no session");
     }
+  }
+
+  useEffect(() => {
+    refreshUser();
   }, [session]);
 
   return (
@@ -51,6 +64,9 @@ export const UserContextProvider = ({
         currentUser: currentUser,
         selectedColoc: selectedColoc,
         setSelectedColoc: setSelectedColoc,
+        refreshUser: refreshUser,
+        drawerOpen: drawerOpen,
+        setDrawerOpen: setDrawerOpen,
       }}
     >
       {children}
