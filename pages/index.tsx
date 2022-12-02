@@ -16,11 +16,7 @@ const Home: NextPage = () => {
   const [username, setUsername] = useState("");
 
   return (
-    <PageWrapper
-      title="Coloc Manager"
-      description="Coloc Manager main page"
-      absolute
-    >
+    <PageWrapper title="Coloc Manager" description="Coloc Manager main page">
       <Title />
       <Card title="Enter you username">
         <Input

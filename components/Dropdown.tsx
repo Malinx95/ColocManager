@@ -55,7 +55,7 @@ DropdownProps) {
         className="w-full flex flex-col shadow-md relative"
         style={{ display: isOpen ? "flex" : "none" }}
       >
-        <div className="flex flex-col absolute w-full bg-[#d9d9d9]">
+        <div className="flex flex-col absolute w-[calc(100%-42px)] bg-[#d9d9d9]">
           {currentUser?.Coloc.map((coloc, index) => (
             <div
               key={coloc.id}

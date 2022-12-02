@@ -5,22 +5,20 @@ function PageWrapper({
   children,
   title,
   description,
-  absolute,
 }: {
   children?: React.ReactNode;
   title?: string;
   description?: string;
-  absolute?: boolean;
 }) {
   return (
-    <div className="lg:flex md:flex flex-col m-0 p-0 items-center relative h-screen w-screen">
+    <div className="flex flex-col m-0 p-0 min-h-screen items-center relative w-screen">
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="lg:w-1/2 md:w-3/4 min-h-full pb-2 bg-green-400">
+      <main className="w-full lg:w-1/2 md:w-3/4 pb-2 bg-green-400 flex flex-col flex-grow">
         {children}
       </main>
 

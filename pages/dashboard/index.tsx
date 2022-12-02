@@ -86,8 +86,8 @@ const HomeDashboard: NextPage = () => {
       <div className="flex flex-col">
         <NavBar />
         <div className="w-full bg-red-400">
-          <Card title="Dashboard" subtitle="Welcome to your dashboard">
-            <p>Dashboard</p>
+          <Card title="Coloc Code" subtitle="Share this for someone to join">
+            <p className="underline text-blue-900">{selectedColoc?.id}</p>
           </Card>
 
           <Card title="Balance">
