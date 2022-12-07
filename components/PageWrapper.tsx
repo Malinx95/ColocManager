@@ -18,7 +18,7 @@ function PageWrapper({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="w-full lg:w-1/2 md:w-3/4 pb-2 bg-green-400 flex flex-col flex-grow">
+      <main className="w-full lg:w-1/2 md:w-3/4 pb-2 flex flex-col flex-grow">
         {children}
       </main>
 

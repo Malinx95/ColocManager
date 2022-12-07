@@ -20,7 +20,6 @@ export default function Profile() {
   });
   const { currentUser, refreshUser } = useCurrentUserContext();
   useEffect(() => {
-    console.log(currentUser);
     setFirstName(currentUser?.firstName);
     setLastName(currentUser?.lastName);
   }, [currentUser]);

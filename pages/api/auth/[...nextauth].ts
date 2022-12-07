@@ -7,6 +7,11 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   secret: "secret key that definitely should not be here",
+  pages: {
+    signIn: "/login",
+    error: "/login",
+    signOut: "/login",
+  },
   providers: [
     CredentialsProvider({
       type: "credentials",
@@ -34,7 +39,7 @@ export const authOptions: NextAuthOptions = {
             } as User;
           }
         }
-        throw "/login?error=Invalid username or password";
+        throw new Error("Invalid password for " + credentials?.username);
       },
     }),
   ],

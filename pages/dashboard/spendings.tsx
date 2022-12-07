@@ -32,7 +32,6 @@ export default function Spendings() {
         body: JSON.stringify({ colocId: selectedColoc?.id }),
       }).then((res) => {
         res.json().then((data) => {
-          console.log("colocSpendings", data);
           setColocSpendings(data);
         });
       });
@@ -40,7 +39,7 @@ export default function Spendings() {
   }, [session, selectedColoc]);
 
   return (
-    <PageWrapper title="$p€ndings" description="A lot of mon€y mon€y">
+    <PageWrapper title="Spendings" description="Coloc's spendings">
       <div className="h-full w-full">
         <NavBar />
 
@@ -83,7 +82,6 @@ export default function Spendings() {
                     body: JSON.stringify({ colocId: selectedColoc?.id }),
                   }).then((res) => {
                     res.json().then((data) => {
-                      console.log("colocSpendings", data);
                       setColocSpendings(data);
                     });
                   });
@@ -115,7 +113,7 @@ export default function Spendings() {
           )}
         </Card>
 
-        <Card title="Dépenses">
+        <Card title="Spendings">
           <table>
             {colocSpendings?.spendings?.map((s: any) => {
               return (
@@ -123,7 +121,7 @@ export default function Spendings() {
                   <th>{s.username}</th>
                   <th>{new Date(s.date).toLocaleDateString()}</th>
                   <th>{s.name}</th>
-                  <th>- {s.amount} £</th>
+                  <th>- {s.amount} €</th>
                 </tr>
               );
             })}

@@ -34,7 +34,7 @@ export default function Drawer() {
       <div
         className={
           drawerOpen
-            ? "fixed left-0 top-0 h-screen w-1/2 bg-amber-400 z-50 flex flex-col"
+            ? "fixed left-0 top-0 h-screen w-1/2 bg-[#d9d9d9] shadow-md shadow-black z-50 flex flex-col"
             : "hidden"
         }
       >
@@ -64,7 +64,7 @@ export default function Drawer() {
             <a
               onClick={() => {
                 setDrawerOpen(false);
-                router.push("/profile");
+                router.push("/dashboard/profile");
               }}
             >
               Profile
@@ -73,7 +73,7 @@ export default function Drawer() {
             <a
               onClick={() => {
                 setDrawerOpen(false);
-                signOut();
+                signOut({ callbackUrl: "/" });
               }}
             >
               Logout

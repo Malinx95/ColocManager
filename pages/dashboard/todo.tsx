@@ -32,7 +32,6 @@ export default function Todo() {
         body: JSON.stringify({ colocId: selectedColoc?.id }),
       }).then((res) => {
         res.json().then((data) => {
-          console.log("colocTodo", data);
           setColocTodo(data);
         });
       });
@@ -40,7 +39,7 @@ export default function Todo() {
   }, [session, selectedColoc]);
 
   return (
-    <PageWrapper title="Todø" description="Todø">
+    <PageWrapper title="Todo" description="Todo">
       <NavBar />
 
       <Card title="Create a new todo">
@@ -73,7 +72,6 @@ export default function Todo() {
                   body: JSON.stringify({ colocId: selectedColoc?.id }),
                 }).then((res) => {
                   res.json().then((data) => {
-                    console.log("colocTodo", data);
                     setColocTodo(data);
                   });
                 });
@@ -82,7 +80,7 @@ export default function Todo() {
           }}
         />
       </Card>
-      <Card title="Todø">
+      <Card title="Todo">
         {colocTodo?.map(
           (t: { title: string; description: string; id: string }) => {
             return (
@@ -91,7 +89,7 @@ export default function Todo() {
                   {t.title} {t.description}
                 </p>
                 <TrashIcon
-                  className="w-6 h-6 text-purple-500"
+                  className="w-6 h-6 bg-red-500"
                   onClick={() => {
                     fetch("/api/todo/delete", {
                       method: "POST",
@@ -112,7 +110,6 @@ export default function Todo() {
                           }),
                         }).then((res) => {
                           res.json().then((data) => {
-                            console.log("colocTodo", data);
                             setColocTodo(data);
                           });
                         });

@@ -7,6 +7,7 @@ import Button from "../../components/Button";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { useCurrentUserContext } from "../../provider/CurrentUserContext";
 
 const Page: NextPage = () => {
   const router = useRouter();
@@ -16,15 +17,13 @@ const Page: NextPage = () => {
       router.push("/");
     },
   });
+  const { refreshUser } = useCurrentUserContext();
 
   const [colocName, setColocName] = useState("");
   const [colocId, setColocId] = useState("");
   const [error, setError] = useState(false);
 
   async function handleCreateColoc() {
-    console.log("create");
-    console.log(session?.user.id);
-    console.log(colocName);
     const res = await fetch("/api/coloc/create", {
       method: "POST",
       headers: {
@@ -33,8 +32,9 @@ const Page: NextPage = () => {
       body: JSON.stringify({ userId: session?.user.id, colocName: colocName }),
     });
     const data = await res.json();
-    console.log(data);
+
     if (data.success) {
+      refreshUser();
       router.push("/dashboard");
     }
   }
@@ -48,7 +48,7 @@ const Page: NextPage = () => {
       body: JSON.stringify({ userId: session?.user.id, colocId: colocId }),
     });
     const data = await res.json();
-    console.log(data);
+
     if (data.success) {
       router.push("/dashboard");
     } else {

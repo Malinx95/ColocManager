@@ -23,6 +23,23 @@ export default function Calendar() {
   const [calendarTitle, setCalendarTitle] = useState<string>("");
   const [calendarDate, setCalendarDate] = useState<Date>(new Date());
 
+  function dateInputString(date: Date) {
+    let year = date.getFullYear();
+    let monthNb = date.getMonth() + 1;
+    let dayNb = date.getDate();
+    let day = dayNb.toString();
+    let month = monthNb.toString();
+
+    if (monthNb < 10) {
+      month = "0" + monthNb;
+    }
+    if (dayNb < 10) {
+      day = "0" + dayNb;
+    }
+
+    return year + "-" + month + "-" + day;
+  }
+
   useEffect(() => {
     if (status === "authenticated" && selectedColoc) {
       fetch("/api/calendar/getColocCalendar", {
@@ -33,7 +50,6 @@ export default function Calendar() {
         body: JSON.stringify({ colocId: selectedColoc?.id }),
       }).then((res) => {
         res.json().then((data) => {
-          console.log("colocCalendar", data);
           setColocCalendar(data);
         });
       });
@@ -41,7 +57,7 @@ export default function Calendar() {
   }, [session, selectedColoc]);
 
   return (
-    <PageWrapper title="Cal3dArrrrrr" description="Cal3dArrrrrr">
+    <PageWrapper title="Calendar" description="Calendar">
       <div>
         <NavBar />
 
@@ -54,10 +70,10 @@ export default function Calendar() {
           />
           <Input
             type="date"
-            value={calendarDate}
+            value={dateInputString(calendarDate)}
             onChange={(e) => {
-              console.log(e.target.value);
-              e.target.value;
+              let date = new Date(e.target.value);
+              setCalendarDate(date);
             }}
           />
           <Button
@@ -84,7 +100,6 @@ export default function Calendar() {
                     body: JSON.stringify({ colocId: selectedColoc?.id }),
                   }).then((res) => {
                     res.json().then((data) => {
-                      console.log("colocCalendar", data);
                       setColocCalendar(data);
                     });
                   });
@@ -93,7 +108,7 @@ export default function Calendar() {
             }}
           />
         </Card>
-        <Card title="Cal3dArrrrrr">
+        <Card title="Calendar">
           {colocCalendar?.map(
             (t: { title: string; date: string; id: string }) => {
               let tDate = new Date(t.date);
@@ -123,7 +138,7 @@ export default function Calendar() {
                     {t.title} {tDate.toLocaleDateString()}
                   </p>
                   <TrashIcon
-                    className="w-6 h-6 text-purple-500"
+                    className="w-6 h-6 text-red-500"
                     onClick={() => {
                       fetch("/api/calendar/delete", {
                         method: "POST",
@@ -144,7 +159,6 @@ export default function Calendar() {
                             }),
                           }).then((res) => {
                             res.json().then((data) => {
-                              console.log("colocCalendar", data);
                               setColocCalendar(data);
                             });
                           });

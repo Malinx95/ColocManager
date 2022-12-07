@@ -32,7 +32,6 @@ export default async function handler(
       },
     });
   } catch (e) {
-    console.log(e);
     prisma.$disconnect();
     res.status(200).json({ success: false, colocId: "" });
   }

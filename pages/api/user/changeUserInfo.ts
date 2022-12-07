@@ -23,6 +23,5 @@ export default async function handler(
     },
   });
   prisma.$disconnect();
-  console.log(userWithColocs);
   res.status(200).json(result ? true : false);
 }

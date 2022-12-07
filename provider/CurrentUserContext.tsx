@@ -26,9 +26,7 @@ export const UserContextProvider = ({
   );
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  useEffect(() => {
-    console.log("selectedColoc", selectedColoc);
-  }, [selectedColoc]);
+  useEffect(() => {}, [selectedColoc]);
 
   function refreshUser() {
     if (session) {
@@ -40,7 +38,6 @@ export const UserContextProvider = ({
         body: JSON.stringify({ userId: session?.user.id }),
       }).then((res) => {
         res.json().then((data) => {
-          console.log("currentUser", data);
           setCurrentUser(data);
           if (data.Coloc.length > 0) {
             setSelectedColoc(data.Coloc[0]);
@@ -50,7 +47,6 @@ export const UserContextProvider = ({
     } else {
       setCurrentUser(null);
       setSelectedColoc(null);
-      console.log("no session");
     }
   }
 

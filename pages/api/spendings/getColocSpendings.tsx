@@ -25,7 +25,6 @@ export default async function handler(
 ) {
   const prisma = new PrismaClient();
   let colocId = req.body.colocId;
-  console.log("colocId", colocId);
   let spendingsResult = await prisma.coloc.findUnique({
     where: {
       id: colocId,

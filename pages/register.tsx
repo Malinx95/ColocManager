@@ -6,14 +6,29 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import { useEffect, useState } from "react";
 import sha256 from "crypto-js/sha256";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Register: NextPage = () => {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState(false);
   const [validated, setValidated] = useState(false);
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      router.push("/dashboard");
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (router.query.username) {
+      setUsername(router.query.username as string);
+    }
+  }, [router.query]);
 
   useEffect(() => {
     setValidated(false);
@@ -33,11 +48,7 @@ const Register: NextPage = () => {
   }
 
   return (
-    <PageWrapper
-      title="Register"
-      description="Register to Coloc Manager"
-      absolute
-    >
+    <PageWrapper title="Register" description="Register to Coloc Manager">
       <Title />
       <Card
         title="Register"
