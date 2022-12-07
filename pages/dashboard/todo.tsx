@@ -89,7 +89,7 @@ export default function Todo() {
                   {t.title} {t.description}
                 </p>
                 <TrashIcon
-                  className="w-6 h-6 bg-red-500"
+                  className="w-6 h-6 text-red-500"
                   onClick={() => {
                     fetch("/api/todo/delete", {
                       method: "POST",

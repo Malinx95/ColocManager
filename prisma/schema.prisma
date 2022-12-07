@@ -40,9 +40,6 @@ model Spending {
 model Todo {
   id        String   @id @default(uuid())
   title     String
-  completed Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   Coloc     Coloc?   @relation(fields: [colocId], references: [id])
   colocId   String?
 }
@@ -51,8 +48,6 @@ model Event {
   id        String   @id @default(uuid())
   title     String
   date      DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   Coloc     Coloc?   @relation(fields: [colocId], references: [id])
   colocId   String?
 }
